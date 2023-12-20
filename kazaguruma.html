@@ -165,6 +165,12 @@
             return temoti;
         }
 
+        var sflg1 = false;
+        var sflg2 = false;
+        var sflg3 = false;
+        var sflg4 = false;
+        var sflg5 = false;
+
         const kazaguruma = createkazaguruma(0, 0, 0, 0xff0000, 0xffff00, "OBJECT001");
         const temoti = createtemoti(0, 0, 0);
         const kazaguruma1 = createkazaguruma(1.8, 0, 1, 0x008000, 0x7fffd4, "OBJECT002");
@@ -187,6 +193,21 @@
         markerRoot.add(kazaguruma);
         markerRoot.add(temoti);
 
+        const listener = new THREE.AudioListener();
+        camera.add(listener);
+        const AudioLoader = new THREE.AudioLoader();
+        const kazeSound = new THREE.Audio(listener);
+        AudioLoader.load('./kaze3.mp3', function (buffer) {
+            kazeSound.setBuffer(buffer);
+            kazeSound.setLoop(false);
+            kazeSound.setVolume(0.05);
+        });
+        const kazagurumaSound = new THREE.Audio(listener);
+        AudioLoader.load('./kazaguruma1.mp3', function (buffer) {
+            kazagurumaSound.setBuffer(buffer);
+            kazagurumaSound.setLoop(false);
+            kazagurumaSound.setVolume(0.04);
+        });
 
         function animate() {
             requestAnimationFrame(animate);
@@ -196,6 +217,11 @@
             kazaguruma3.rotation.y += Math.PI / (180 - speed4);
             kazaguruma4.rotation.y += Math.PI / (180 - speed5);
             if (m01Flg != 1) {
+                if (sflg1 == false) {
+                    kazeSound.play();
+                    kazagurumaSound.play();
+                    sflg1 = true;
+                }
                 if (count1 <= 26) {
                     speed1 = -1 * (count1 - 13) ** 2 + 169;
                     count1 += 0.08;
@@ -204,10 +230,17 @@
                     m01Flg = -1 * m01Flg;
                     count1 = 0;
                     speed1 = 1;
+                    kazeSound.stop();
+                    kazagurumaSound.stop();
                 }
 
             }
             if (m02Flg != 1) {
+                if (sflg2 == false) {
+                    kazeSound.play();
+                    kazagurumaSound.play();
+                    sflg2 = true;
+                }
                 if (count2 <= 26) {
                     speed2 = -1 * (count2 - 13) ** 2 + 169;
                     count2 += 0.08;
@@ -216,10 +249,17 @@
                     m02Flg = -1 * m02Flg;
                     count2 = 0;
                     speed2 = 1;
+                    kazeSound.stop();
+                    kazagurumaSound.stop();
                 }
 
             }
             if (m03Flg != 1) {
+                if (sflg3 == false) {
+                    kazeSound.play();
+                    kazagurumaSound.play();
+                    sflg3 = true;
+                }
                 if (count3 <= 26) {
                     speed3 = -1 * (count3 - 13) ** 2 + 169;
                     count3 += 0.08;
@@ -228,10 +268,17 @@
                     m03Flg = -1 * m03Flg;
                     count3 = 0;
                     speed3 = 1;
+                    kazeSound.stop();
+                    kazagurumaSound.stop();
                 }
 
             }
             if (m04Flg != 1) {
+                if (sflg4 == false) {
+                    kazeSound.play();
+                    kazagurumaSound.play();
+                    sflg4 = true;
+                }
                 if (count4 <= 26) {
                     speed4 = -1 * (count4 - 13) ** 2 + 169;
                     count4 += 0.08;
@@ -240,10 +287,17 @@
                     m04Flg = -1 * m04Flg;
                     count4 = 0;
                     speed4 = 1;
+                    kazeSound.stop();
+                    kazagurumaSound.stop();
                 }
 
             }
             if (m05Flg != 1) {
+                if (sflg5 == false) {
+                    kazeSound.play();
+                    kazagurumaSound.play();
+                    sflg5 = true;
+                }
                 if (count5 <= 26) {
                     speed5 = -1 * (count5 - 13) ** 2 + 169;
                     count5 += 0.08;
@@ -252,6 +306,8 @@
                     m05Flg = -1 * m05Flg;
                     count5 = 0;
                     speed5 = 1;
+                    kazeSound.stop();
+                    kazagurumaSound.stop();
                 }
 
             }
@@ -305,22 +361,27 @@
                 case "OBJECT001":
                     console.log("OBJECT001 hit");
                     m01Flg = -1 * m01Flg;
+                    sflg1 = false;
                     break;
                 case "OBJECT002":
                     console.log("OBJECT002 hit");
                     m02Flg = -1 * m02Flg;
+                    sflg2 = false;
                     break;
                 case "OBJECT003":
                     console.log("OBJECT003 hit");
                     m03Flg = -1 * m03Flg;
+                    sflg3 = false;
                     break;
                 case "OBJECT004":
                     console.log("OBJECT004 hit");
                     m04Flg = -1 * m04Flg;
+                    sflg4 = false;
                     break;
                 case "OBJECT005":
                     console.log("OBJECT005 hit");
                     m05Flg = -1 * m05Flg;
+                    sflg5 = false;
                     break;
                 default:
                     break;
